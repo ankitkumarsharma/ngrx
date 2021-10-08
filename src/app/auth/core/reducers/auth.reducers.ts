@@ -15,7 +15,8 @@ const authReducer = createReducer(
     on(authAction.saveLoginAction, (state, {payload})=>{
         return {
             ...state,
-            userName: payload
+            userName: payload["userName"],
+            isAuth: payload["isAuth"]
         }
     }),
     on(authAction.resetLoginAction, (state)=>{

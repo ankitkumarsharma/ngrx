@@ -14,14 +14,14 @@ export class AuthEffects {
             switchMap(({payload})=>{
                 return this._authService.login(payload).pipe(
                     map((data:any)=>{
-                        let json = JSON.parse(JSON.stringify(data));
-                        if(json == undefined){
+                        console.log(data)
+                        if(data == undefined){
                             // this._store.dispatch(
                             //     authAction.saveLoginAction({payload: json})
                             // )
                             return sendEmptyAction();
                         } else {
-                            return authAction.saveLoginAction({payload: json});
+                            return authAction.saveLoginAction({payload: data});
                         }
                     })
                 )
