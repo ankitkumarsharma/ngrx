@@ -1,3 +1,4 @@
+import { HeaderInterceptor } from './core/helpers/interceptors/header/header.interceptor';
 import { metaReducers, reducers } from './core/state/reducers/index';
 import { Effects } from './core/state/effects/index';
 import { environment } from './../environments/environment';
@@ -11,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     }),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

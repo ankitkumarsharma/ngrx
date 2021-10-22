@@ -21,6 +21,6 @@ export class ApiService {
     } else {
       this.reqestObj = {};
     }
-    return this.http.get(`${this.baseurl}/${uri}`, this.reqestObj);
+    return this.http.post(`${this.baseurl}/${uri}`, this.reqestObj);
   }
 }
