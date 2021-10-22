@@ -5,9 +5,10 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as authAction from "../actions/auth.actions";
 import {map, switchMap} from "rxjs/operators"
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 @Injectable()
 export class AuthEffects {
-    constructor(private _actions$: Actions, private _authService:AuthService, private _store:Store<any>){}
+    constructor(private _actions$: Actions, private _authService:AuthService, private _store:Store<any>, private _route:Router){}
     getLogin$ = createEffect(()=> 
         this._actions$.pipe(
             ofType(authAction.getLoginAction.type),
@@ -21,6 +22,7 @@ export class AuthEffects {
                             // )
                             return sendEmptyAction();
                         } else {
+                            this._route.navigate(['/landing'])
                             return authAction.saveLoginAction({payload: data});
                         }
                     })
