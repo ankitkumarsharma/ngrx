@@ -3,3 +3,6 @@ export interface FormType {
   mobile: string,
   email: string,
 }
+export interface LoaderStateType {
+  show: boolean;
+}

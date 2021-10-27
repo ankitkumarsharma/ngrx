@@ -1,3 +1,4 @@
+import { LoaderInterceptor } from './core/helpers/interceptors/loader/loader.interceptor';
 import { HeaderInterceptor } from './core/helpers/interceptors/header/header.interceptor';
 import { metaReducers, reducers } from './core/state/reducers/index';
 import { Effects } from './core/state/effects/index';
@@ -13,11 +14,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
