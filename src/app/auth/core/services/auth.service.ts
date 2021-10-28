@@ -12,7 +12,7 @@ export class AuthService {
   constructor(private _api: ApiService) { }
 
   login(payload:LoginType){
-    // return of({userName:"ankit", isAuth: true})
-    return this._api.post(LOGIN, payload);
+    return of({userName:"ankit", isAuth: true});
+    // return this._api.post(LOGIN, payload);
   }
 }
