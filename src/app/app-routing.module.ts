@@ -16,6 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'products',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/products/products.module').then(
         (m) => m.ProductsModule
@@ -23,6 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'services',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/services/services.module').then(
         (m) => m.ServicesModule
@@ -30,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'account',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/account/account.module').then((m) => m.AccountModule),
   },

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { dummyDataChange } from './user-account/user-account-dashboard/core/actions/user-account-dashboard.actions';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _route:Router, private _store:Store<any>) { }
 
   ngOnInit(): void {
   }
-
+  onDash(){
+    this._store.dispatch(dummyDataChange());
+    this._route.navigate(['/account/user-account/dashboard'])
+  }
 }

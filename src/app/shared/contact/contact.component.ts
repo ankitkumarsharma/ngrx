@@ -1,4 +1,6 @@
+import { logout } from './../../auth/core/actions/auth.actions';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-contact',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _store:Store<any>) { }
 
   ngOnInit(): void {
   }
-
+  onLogout(){
+    this._store.dispatch(logout());
+  }
 }

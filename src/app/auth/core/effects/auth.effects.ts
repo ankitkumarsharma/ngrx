@@ -1,3 +1,4 @@
+import { logout } from './../actions/auth.actions';
 import { sendEmptyAction } from './../../../core/state/actions/common.actions';
 import { AuthService } from './../services/auth.service';
 import { Injectable } from "@angular/core";
@@ -6,6 +7,7 @@ import * as authAction from "../actions/auth.actions";
 import {map, switchMap} from "rxjs/operators"
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
 @Injectable()
 export class AuthEffects {
     constructor(private _actions$: Actions, private _authService:AuthService, private _store:Store<any>, private _route:Router){}
@@ -29,5 +31,17 @@ export class AuthEffects {
                 )
             })
         )
-    )
+    );
+
+    logout$ = createEffect(()=> 
+        this._actions$.pipe(
+            ofType(authAction.logout.type),
+            switchMap(()=>{
+                this._store.dispatch(authAction.resetState());
+                this._route.navigate(['/auth']);
+                return EMPTY
+            })
+        ),
+        {dispatch: false}
+    );
 }
