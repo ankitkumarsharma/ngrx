@@ -16,6 +16,6 @@ export class AccountComponent implements OnInit {
   }
   onDash(){
     this._store.dispatch(dummyDataChange());
-    this._route.navigate(['/account/user-account/dashboard'])
+    this._route.navigate(['/account/user-account/dashboard',"12"])
   }
 }

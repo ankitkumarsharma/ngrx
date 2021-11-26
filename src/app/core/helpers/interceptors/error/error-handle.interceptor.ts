@@ -1,18 +1,22 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { ErrorHandler, Inject, Injectable, Injector, NgZone } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class ErrorHandleInterceptor implements HttpInterceptor {
+export class ErrorHandleInterceptor implements ErrorHandler {
 
-  constructor() {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+  constructor(private zone: NgZone, @Inject(Injector) private readonly injector: Injector) {} 
+  private get toast() {
+    return this.injector.get(ToastrService);
+  }
+  handleError(err: any){
+    // check if it's an error from an http response
+    if(!(err instanceof HttpErrorResponse)) {
+      err = err.rejection;  // get the error object
+    }
+    this.toast.error(err?.message || 'Undefined client error');
+    // console.error('Error from global error handler', err);
   }
 }
